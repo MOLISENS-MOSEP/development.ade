@@ -3,5 +3,4 @@ export ADE_GITLAB=gitlab.v2c2.at
 export ADE_REGISTRY=registry-gitlab.v2c2.at
 export ADE_IMAGES="
   registry-gitlab.v2c2.at/molisens/development/docker/galactic/ade:0.1
-  registry.gitlab.com/apexai/ade-vscode:latest
 "
