@@ -17,5 +17,5 @@ fi
 alias molisense_ade_update="export ADE_NAME=molisens && cd $ADE_MOLISENS_PATH && $ADE_VERSION --rc $ADE_MOLISENS_PATH/.aderc_$ARCHITECTURE start --update"
 alias molisense_ade_start="export ADE_NAME=molisens && $ADE_VERSION --rc $ADE_MOLISENS_PATH/.aderc_$ARCHITECTURE start --enter"
 alias molisense_ade_enter="export ADE_NAME=molisens && molisense_ade_start; $ADE_VERSION enter"
-alias molisense_ade_stop="export ADE_NAME=molisens && ade stop"
+alias molisense_ade_stop="export ADE_NAME=molisens && $ADE_VERSION stop"
 
