@@ -155,3 +155,8 @@ alias vscode="/opt/vscode/bin/code"
 
 ##### Other changes after here #####
 
+
+if [ -f $MOLISENS_WS_DIR/config/cyclonedds.xml ]; then
+  export CYCLONEDDS_URI=file://$MOLISENS_WS_DIR/config/cyclonedds.xml
+fi
+
