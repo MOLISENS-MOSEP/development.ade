@@ -9,18 +9,33 @@ sudo usermod -aG docker ${USER}
 
 
 
-## Installation (optional)
+## Installation
 
 !!! During the installation, the repo is already cloned and ADE installed. !!!
 
 To use the MOLISENS docker container with ADE you need the following commands to set it up:
+
+Add the  following line to your .zprofile or .bashrc
 ```
-export MOLISENS_DIR="$HOME/projects/MOLISENS"
+export MOLISENS_DIR="WHEREVER_YOU_WANT"
+```
+
+WHEREVER_YOU_WANT is the folder where you want to install ade and the MOLISENS repos.
+
+```
 mkdir -p $MOLISENS_DIR
 git clone  https://gitlab.v2c2.at/molisens/development/ade.git $MOLISENS_DIR/ade
 $MOLISENS_DIR/ade/install_ade.sh
 ```
 With this you should have setup your ade environment. **Restart the terminal!**
+
+## Installation MacOS
+
+1) Install ade for mac first see: https://ade-cli.readthedocs.io/en/latest/install.html
+2) Do everything from above.
+3) run molisens_ade_enter
+4) to every described in MOLISENS/molisens_ws/src/drivers/smartmicro_ros2_radars/Readme.md under the ARMv8 Support section
+5) run molisens_make inside the ade container
 
 ## Usage
 
