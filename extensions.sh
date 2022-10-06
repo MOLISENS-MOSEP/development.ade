@@ -6,11 +6,16 @@ export ADE_MOLISENS_PATH=$MOLISENS_DIR/ade
 
 PATH=$PATH:$ADE_MOLISENS_PATH
 
+
+
+
 ARCHITECTURE=$(uname -i)
 if [[ $ARCHITECTURE == x86_64* ]]; then
   ADE_VERSION=ade+x86_64
+  #export ADE_DISABLE_NVIDIA_DOCKER=true  # If you want to use CUDA inside ADE, comment this line!  
 elif [[ $ARCHITECTURE == aarch64* ]]; then
   ADE_VERSION=ade+aarch64
+  export ADE_DISABLE_NVIDIA_DOCKER=true  # If you want to use CUDA inside ADE, comment this line!
 fi
 
 # ade environment
