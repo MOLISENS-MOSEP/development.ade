@@ -5,5 +5,5 @@ export ADE_DOCKER_RUN_ARGS="--cap-add=SYS_PTRACE --net=host --privileged --add-h
 export ADE_GITLAB=gitlab.v2c2.at
 export ADE_REGISTRY=registry-gitlab.v2c2.at
 
-export ADE_IMAGES="registry-gitlab.v2c2.at/molisens/development/docker/galactic/aarch64:0.1"
+export ADE_IMAGES="registry-gitlab.v2c2.at/molisens/development/docker/humble/aarch64:0.2"
 
