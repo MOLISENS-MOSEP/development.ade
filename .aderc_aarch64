@@ -1,4 +1,4 @@
-export ADE_DOCKER_RUN_ARGS="--cap-add=SYS_PTRACE --net=host --privileged --add-host ade:127.0.0.1 
+export ADE_DOCKER_RUN_ARGS="--cap-add=SYS_PTRACE --net=host --privileged --add-host molisens:127.0.0.1 
 -v /dev/ttyS0:/dev/sensor_gps_module
 -v /dev/sensor_xsens_mti630:/dev/sensor_xsens_mti630
 -v /dev/rs485_adapter_0:/dev/rs485_adapter_0
