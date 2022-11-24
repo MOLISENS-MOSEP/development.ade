@@ -10,7 +10,7 @@ ARCHITECTURE=$(uname -m)
 if [[ $ARCHITECTURE == x86_64* ]]; then
   ADE_VERSION=ade+x86_64
   #export ADE_DISABLE_NVIDIA_DOCKER=true  # If you want to use CUDA inside ADE, comment this line!
-elif [[ $ARCHITECTURE == aarch64* ]] then
+elif [[ $ARCHITECTURE == aarch64* ]]; then
   ADE_VERSION=ade+aarch64
   export ADE_DISABLE_NVIDIA_DOCKER=true  # If you want to use CUDA inside ADE, comment this line!
 elif  [[ $ARCHITECTURE == arm64 ]]; then
