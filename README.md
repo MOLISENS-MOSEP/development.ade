@@ -61,3 +61,15 @@ If there is a problem donloading the MOLISENS docker container image, maybe you 
 docker login registry-gitlab.v2c2.at
 ```
 
+------
+
+If you get something like this (on a new computer or WSL):
+
+cp: cannot stat '/home/thomasgoelles/.gitconfig': No such file or directory
+
+
+you need to config git first
+
+
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
