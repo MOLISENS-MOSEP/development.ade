@@ -160,3 +160,4 @@ if [ -f $MOLISENS_WS_DIR/config/cyclonedds.xml ]; then
   export CYCLONEDDS_URI=file://$MOLISENS_WS_DIR/config/cyclonedds.xml
 fi
 
+export ROS_DOMAIN_ID=31
