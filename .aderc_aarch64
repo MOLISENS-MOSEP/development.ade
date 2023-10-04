@@ -1,16 +1,11 @@
 export ADE_DOCKER_RUN_ARGS="--cap-add=SYS_PTRACE --net=host --privileged --add-host molisens:127.0.0.1 
--v /dev/ttyS0:/dev/sensor_gps_module
--v /dev/sensor_xsens_mti630:/dev/sensor_xsens_mti630
--v /dev/rs485_adapter_0:/dev/rs485_adapter_0
--v /dev/rs485_adapter_1:/dev/rs485_adapter_1
--v /dev/rs485_adapter_2:/dev/rs485_adapter_2
+-v /dev/video0:/dev/video0
+--device /dev/vchiq
+-v /opt/vc:/opt/vc
 -v /media/data/bagfiles/:/home/molisens/MOLISENS/bagfiles/
--p 7502:7502
--p 7503:7503
--p 55555:55555
+--env LD_LIBRARY_PATH=/opt/vc/lib
 -e RMW_IMPLEMENTATION=rmw_fastrtps_cpp"
 export ADE_GITLAB=gitlab.v2c2.at
 export ADE_REGISTRY=registry-gitlab.v2c2.at
 
 export ADE_IMAGES="registry-gitlab.v2c2.at/molisens/development/docker/humble/aarch64:0.2"
- 
