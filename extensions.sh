@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ADE
-export ADE_MOLISENS_PATH=$MOLISENS_DIR/ade/MOLISENS/molisens_ws
+export ADE_MOLISENS_PATH=$MOLISENS_DIR/ade
 
 PATH=$PATH:$ADE_MOLISENS_PATH
 
