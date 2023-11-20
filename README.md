@@ -15,9 +15,9 @@ sudo usermod -aG docker ${USER}
 
 To use the MOLISENS docker container with ADE you need the following commands to set it up:
 
-Create the environment variable to where you want your molisens directory to be
+Add the  following line to your .zprofile or .bashrc
 ```
-export MOLISENS_DIR="WHEREVER/YOU/WANT"
+export MOLISENS_DIR="WHEREVER_YOU_WANT"
 ```
 
 WHEREVER_YOU_WANT is the folder where you want to install ade and the MOLISENS repos.
@@ -52,13 +52,7 @@ To stop ADE you need to execute outside of ADE:
 molisens_ade_stop
 ```
 
-## Uninstallation
 
-To uninstall all the changes made to your system during this installation process, execute 
-
-```
-$MOLISENS_DIR/ade/unininstall_ade.sh
-```
 
 ## Troubleshooting
 
