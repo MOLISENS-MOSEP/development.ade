@@ -15,7 +15,7 @@ sudo usermod -aG docker ${USER}
 
 To use the MOLISENS docker container with ADE you need the following commands to set it up:
 
-Add the  following line to your .zprofile or .bashrc
+Execute and add the following line to your .zprofile or .bashrc
 ```
 export MOLISENS_DIR="WHEREVER_YOU_WANT"
 ```
