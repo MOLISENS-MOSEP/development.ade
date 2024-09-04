@@ -9,8 +9,8 @@ export ADE_DOCKER_RUN_ARGS="--cap-add=SYS_PTRACE --net=host --privileged --add-h
 -p 7503:7503
 -p 55555:55555
 -e RMW_IMPLEMENTATION=rmw_fastrtps_cpp"
-export ADE_GITLAB=gitlab.v2c2.at
-export ADE_REGISTRY=registry-gitlab.v2c2.at
+export ADE_GITHUB=github.com/MOLISENS-MOSEP
+export ADE_REGISTRY=ghcr.io
 
-export ADE_IMAGES="registry-gitlab.v2c2.at/molisens/development/docker/humble/aarch64:0.3"
+export ADE_IMAGES="ghcr.io/molisens-mosep/humble-aarch64:0.3"
  
