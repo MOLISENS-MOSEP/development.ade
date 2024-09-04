@@ -28,14 +28,15 @@ export MOLISENS_DIR="/home/$USER/projects/MOLISENS"
 Now you can execute the following commands to install the MOLISENS ADE:
 ```bash	
 mkdir -p $MOLISENS_DIR
-git clone  https://gitlab.v2c2.at/molisens/development/ade.git $MOLISENS_DIR/ade
+git clone https://github.com/MOLISENS-MOSEP/development.ade.git $MOLISENS_DIR/ade
 $MOLISENS_DIR/ade/install_ade.sh
 ```
 With this you should have setup your ade environment. **Restart the terminal!**
 
-To be able to download the MOLISENS docker iamge you need to login in to the Gitlab registry:
+To be able to download the MOLISENS docker iamge you need to login in to the [GitHub registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) with a [personal access token](https://github.com/settings/tokens):
 ```bash
-docker login registry-gitlab.v2c2.at
+export CR_PAT=YOUR_TOKEN
+echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 ```
 
 ## Installation MacOS
