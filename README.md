@@ -1,6 +1,6 @@
 # MOLISENS/MOSEP Software Stack
 
-This repo holds the software stack for the MOLISENS/MOSEP project. It is based on ROS2 and uses the ADE (agile development environment) to manage the docker containers.
+This repo holds the software stack for the MOLISENS/MOSEP project. It is based on ROS2 and uses the [ADE](https://gitlab.com/ApexAI/ade-cli) (agile development environment) to manage the docker containers used for deployment. In principle ADE is nothing more (but also nothing less) than a bunch of shell scripts to more easyly manage the deployment of a ROS development environment using docker on different machines. More information on the specifcs of ADE can be found in the [documentation](https://ade-cli.readthedocs.io/en/latest/intro.html).
 
 ## Installation
 
@@ -15,11 +15,11 @@ sudo usermod -aG docker ${USER}
 
 ### Run the install script
 
-The software stack is built on the basis of ADE (agile development environment), which is a tool to manage docker containers. It will be installed automotically in the following steps.
+The software stack is built on the basis of ADE, which will be installed automotically in the following steps.
 
 To use the MOLISENS docker container with ADE you need the following commands to set it up:
 
-Execute and add the following line to your .zprofile or .bashrc
+Execute and add the following line to your .zshrc or .bashrc file:
 ```bash
 export MOLISENS_DIR="WHEREVER_YOU_WANT/MOLISENS"
 ```
