@@ -1,9 +1,0 @@
-export ADE_DOCKER_RUN_ARGS="--cap-add=SYS_PTRACE --net=host --privileged --add-host molisens:127.0.0.1
--p 7502:7502
--p 7503:7503
--e RMW_IMPLEMENTATION=rmw_fastrtps_cpp"
-export ADE_GITHUB=github.com/molisens-mosep
-export ADE_REGISTRY=ghcr.io/molisens-mosep
-
-export ADE_IMAGES="ghcr.io/molisens-mosep/humble-aarch64:0.3"
-

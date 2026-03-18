@@ -1,20 +1,30 @@
 #!/bin/sh
 
+set -e
 
 write_shrc()
 {
-	# if a ~/.bashrc exists, write it to the .bashrc-file
-  if [ -e ~/.bashrc ]
-  then
+  # if a ~/.bashrc exists, write it to the .bashrc-file
+  if [ -e ~/.bashrc ]; then
     echo "$1" >> ~/.bashrc
   fi
 
   # if a ~/.zshrc exists, write it to the .zshrc-file
-  if [ -e ~/.zshrc ]
-  then
+  if [ -e ~/.zshrc ]; then
     echo "$1" >> ~/.zshrc
   fi
 }
+
+# Check prerequisites
+if ! command -v docker >/dev/null 2>&1; then
+    echo "Error: docker is not installed. See https://docs.docker.com/engine/install/"
+    exit 1
+fi
+
+if ! command -v just >/dev/null 2>&1; then
+    echo "Error: just is not installed. See https://github.com/casey/just#installation"
+    exit 1
+fi
 
 # Check if $MOLISENS_DIR is set (if not, the whole operation does not make sense)
 if [ -z "$MOLISENS_DIR" ]; then
@@ -22,17 +32,16 @@ if [ -z "$MOLISENS_DIR" ]; then
     exit 1
 fi
 
-# Create Subdirs
-mkdir $MOLISENS_DIR/ade/MOLISENS
-mkdir $MOLISENS_DIR/ade/MOLISENS/bagfiles
-git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git $MOLISENS_DIR/ade/MOLISENS/molisens_ws
-mkdir $MOLISENS_DIR/ade/MOLISENS/molisens_ws/src
+# Create subdirectories
+mkdir -p "$MOLISENS_DIR/ade/MOLISENS/bagfiles"
+git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOLISENS_DIR/ade/MOLISENS/molisens_ws"
+mkdir -p "$MOLISENS_DIR/ade/MOLISENS/molisens_ws/src"
 
-# write to .bashrc the extension to use the ADE environment
+# Source extensions.sh on shell startup
 write_shrc "source $MOLISENS_DIR/ade/extensions.sh"
 
-# copy local git configuration into the ADE environment
-cp ~/.gitconfig $MOLISENS_DIR/ade/.gitconfig
+# Copy local git configuration into the container home directory
+cp ~/.gitconfig "$MOLISENS_DIR/ade/.gitconfig"
 
-echo "Installation Complete!"
-echo "To start the ADE environment, restart the terminal and run 'molisens_ade_start'"
+echo "Installation complete!"
+echo "Restart your terminal, then run 'mosep_enter' to start the development container."

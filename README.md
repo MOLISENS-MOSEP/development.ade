@@ -1,15 +1,25 @@
-# MOLISENS/MOSEP Development Environment (ADE)
+# MOLISENS/MOSEP Development Environment
 
-Main entry point for the MOLISENS/MOSEP software stack. Uses [ADE](https://ade-cli.readthedocs.io/en/latest/) (Agile Development Environment) to manage Docker-based ROS 2 development containers across multiple platforms (x86_64, aarch64, macOS ARM64).
+Main entry point for the MOLISENS/MOSEP software stack. Uses Docker Compose and [just](https://github.com/casey/just) to manage Docker-based ROS 2 development containers across multiple platforms (x86_64, aarch64, macOS ARM64).
 
 ## Prerequisites
 
-Install Docker:
+**Docker:**
 
 ```bash
 sudo apt install docker.io
 sudo groupadd docker
 sudo usermod -aG docker ${USER}
+```
+
+**just** (command runner):
+
+```bash
+# Via prebuilt binary
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+
+# Or via package manager (Ubuntu 24.04+)
+sudo apt install just
 ```
 
 ## Installation
@@ -42,38 +52,46 @@ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
 ## Usage
 
-Enter the ADE container (downloads the Docker image on first run):
+Enter the development container (downloads the Docker image on first run):
 
 ```bash
-molisens_ade_enter
+mosep_enter
 ```
 
-Stop the container (run outside ADE):
+Stop the container:
 
 ```bash
-molisens_ade_stop
+mosep_stop
+```
+
+You can also use `just` directly from the `ade/` directory:
+
+```bash
+cd $MOLISENS_DIR/ade
+just enter
+just stop
+just update
 ```
 
 ### Available Commands
 
-| Command               | Description                                |
-| --------------------- | ------------------------------------------ |
-| `molisens_ade_enter`  | Enter the ADE container (starts if needed) |
-| `molisens_ade_start`  | Start and enter the container              |
-| `molisens_ade_stop`   | Stop the container                         |
-| `molisens_ade_update` | Start with Docker image update             |
+| Alias          | just recipe   | Description                            |
+| -------------- | ------------- | -------------------------------------- |
+| `mosep_enter`  | `just enter`  | Enter the container (starts if needed) |
+| `mosep_stop`   | `just stop`   | Stop the container                     |
+| `mosep_update` | `just update` | Pull latest image and restart          |
+| —              | `just logs`   | Show container logs                    |
+| —              | `just status` | Show container status                  |
 
 ## Structure
 
 ```
 ade/
 ├── install_ade.sh          # Installation script
-├── extensions.sh           # Shell env setup and ADE aliases
-├── ade+x86_64              # ADE binary (x86_64)
-├── ade+aarch64             # ADE binary (ARM64)
-├── .aderc_x86_64           # ADE container config (x86_64)
-├── .aderc_aarch64          # ADE container config (ARM64, with device mounts)
-├── .aderc_arm64            # ADE container config (macOS)
+├── extensions.sh           # Shell env setup and aliases
+├── compose.yaml            # Docker Compose base config (x86_64)
+├── compose.aarch64.yaml    # Docker Compose overrides (ARM64 devices)
+├── justfile                # Task runner recipes
 └── MOLISENS/
     ├── bagfiles/           # Recorded rosbag data
     └── molisens_ws/        # ROS 2 workspace (cloned during install)
@@ -88,6 +106,9 @@ $MOLISENS_DIR/
 ├── ade/                                    ← development.ade (this repo)
 │   ├── install_ade.sh
 │   ├── extensions.sh
+│   ├── compose.yaml
+│   ├── compose.aarch64.yaml
+│   ├── justfile
 │   └── MOLISENS/
 │       ├── bagfiles/                       ← recorded rosbag data
 │       └── molisens_ws/                    ← molisens_ws repo
@@ -110,7 +131,7 @@ $MOLISENS_DIR/
 │                   ├── met_monitoring/        ← tools.met_monitoring
 │                   └── ntrip_client/          (third-party)
 └── docker/                                 ← development.docker repo
-    ├── build_ade.sh
+    ├── build.sh
     ├── x86_64/                                Dockerfiles for x86_64
     ├── aarch64/                               Dockerfiles for ARM64
     └── Ouster_ROS1/                           ROS 1↔2 bridge for Ouster
@@ -118,8 +139,8 @@ $MOLISENS_DIR/
 
 ## Notes on macOS
 
-1. Install ADE for macOS first: https://ade-cli.readthedocs.io/en/latest/install.html
+1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) and [just](https://github.com/casey/just#installation)
 2. Follow the standard installation steps above
-3. Run `molisens_ade_enter`
+3. Run `mosep_enter`
 4. Follow the instructions in `MOLISENS/molisens_ws/src/drivers/smartmicro_ros2_radars/Readme.md` under the ARMv8 Support section
-5. Run `molisens_make` inside the ADE container
+5. Run `molisens_make` inside the container

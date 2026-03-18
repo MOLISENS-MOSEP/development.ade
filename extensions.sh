@@ -1,28 +1,24 @@
 #!/bin/sh
 
-# ADE
-export ADE_MOLISENS_PATH=$MOLISENS_DIR/ade
+# MOSEP development environment
+export MOSEP_DIR=$MOLISENS_DIR/ade
 
-PATH=$PATH:$ADE_MOLISENS_PATH
-
+# Set COMPOSE_FILE based on architecture
 ARCHITECTURE=$(uname -m)
-if [[ $ARCHITECTURE == x86_64* ]]; then
-  ADE_VERSION=ade+x86_64
-  export ADE_DISABLE_NVIDIA_DOCKER=true # If you want to use CUDA inside ADE, comment this line!
-elif [[ $ARCHITECTURE == aarch64* ]]; then
-  ADE_VERSION=ade+aarch64
-  export ADE_DISABLE_NVIDIA_DOCKER=true # If you want to use CUDA inside ADE, comment this line!
-elif [[ $ARCHITECTURE == arm64 ]]; then
-  # asuming OSX with arm processor
-  # install ade with https://ade-cli.readthedocs.io/en/latest/install.html
-  ADE_VERSION=ade
-  export ADE_DISABLE_NVIDIA_DOCKER=true
+if [[ $ARCHITECTURE == aarch64* ]] || [[ $ARCHITECTURE == arm64 ]]; then
+  export COMPOSE_FILE="compose.yaml:compose.aarch64.yaml"
+else
+  export COMPOSE_FILE="compose.yaml"
 fi
 
-echo $ADE_VERSION
+# Environment variables consumed by compose.yaml
+export USER=$(whoami)
+export GROUP=$(id -gn)
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
+export VIDEO_GROUP_ID=$(getent group video | cut -d: -f3 2>/dev/null || echo 44)
 
-# ade environment
-alias molisens_ade_update="export ADE_NAME=molisens && cd $ADE_MOLISENS_PATH && $ADE_VERSION --rc $ADE_MOLISENS_PATH/.aderc_$ARCHITECTURE start --update"
-alias molisens_ade_start="export ADE_NAME=molisens && $ADE_VERSION --rc $ADE_MOLISENS_PATH/.aderc_$ARCHITECTURE start --enter"
-alias molisens_ade_enter="export ADE_NAME=molisens && molisens_ade_start; $ADE_VERSION enter"
-alias molisens_ade_stop="export ADE_NAME=molisens && $ADE_VERSION stop"
+# Convenience aliases
+alias mosep_enter="cd $MOSEP_DIR && just enter"
+alias mosep_stop="cd $MOSEP_DIR && just stop"
+alias mosep_update="cd $MOSEP_DIR && just update"
