@@ -1,61 +1,125 @@
-# MOLISENS/MOSEP Software Stack
+# MOLISENS/MOSEP Development Environment (ADE)
 
-This repo holds the software stack for the MOLISENS/MOSEP project. It is based on ROS2 and uses the [ADE](https://gitlab.com/ApexAI/ade-cli) (agile development environment) to manage the docker containers used for deployment. In principle ADE is nothing more (but also nothing less) than a bunch of shell scripts to more easyly manage the deployment of a ROS development environment using docker on different machines. More information on the specifcs of ADE can be found in the [documentation](https://ade-cli.readthedocs.io/en/latest/intro.html).
+Main entry point for the MOLISENS/MOSEP software stack. Uses [ADE](https://ade-cli.readthedocs.io/en/latest/) (Agile Development Environment) to manage Docker-based ROS 2 development containers across multiple platforms (x86_64, aarch64, macOS ARM64).
 
-## Installation
+## Prerequisites
 
-### Prerequisites
+Install Docker:
 
-This software stack uses Docker to run all the necessary tools. To install Docker you can use the following commands:
 ```bash
 sudo apt install docker.io
 sudo groupadd docker
 sudo usermod -aG docker ${USER}
 ```
 
-### Run the install script
+## Installation
 
-The software stack is built on the basis of ADE, which will be installed automotically in the following steps.
+1. Set the installation directory (add to your `.bashrc` or `.zshrc`):
 
-To use the MOLISENS docker container with ADE you need the following commands to set it up:
-
-Execute and add the following line to your .zshrc or .bashrc file:
 ```bash
-export MOLISENS_DIR="WHEREVER_YOU_WANT/MOLISENS"
+export MOLISENS_DIR="<WHEREVER_YOU_WANT>/MOLISENS"
 ```
-WHEREVER_YOU_WANT is the folder where you want to install ade and the MOLISENS repos. For example `export MOLISENS_DIR="/home/$USER/projects/MOLISENS"`.
+For example `export MOLISENS_DIR="/home/$USER/projects/MOLISENS"`
 
-Now you can execute the following commands to install the MOLISENS ADE:
-```bash	
+2. Clone and run the install script:
+
+```bash
 mkdir -p $MOLISENS_DIR
 git clone https://github.com/MOLISENS-MOSEP/development.ade.git $MOLISENS_DIR/ade
 $MOLISENS_DIR/ade/install_ade.sh
 ```
-With this you should have setup your ade environment. **Restart the terminal!**
 
-To be able to download the MOLISENS docker iamge you need to login in to the [GitHub registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) with a [personal access token](https://github.com/settings/tokens):
+If you get `permission denied`, run `chmod +x $MOLISENS_DIR/ade/install_ade.sh` first.
+
+3. **Restart your terminal.**
+
+4. Login to the GitHub Container Registry with a [personal access token](https://github.com/settings/tokens):
+
 ```bash
 export CR_PAT=YOUR_TOKEN
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 ```
 
-### Notes on the installation on MacOS
-
-1) Install ade for mac first see: https://ade-cli.readthedocs.io/en/latest/install.html
-2) Do everything from above.
-3) run molisens_ade_enter
-4) to every described in MOLISENS/molisens_ws/src/drivers/smartmicro_ros2_radars/Readme.md under the ARMv8 Support section
-5) run molisens_make inside the ade container
-
-
 ## Usage
 
-You can now enter the MOLISENS/MOSEP ADE environment with the command:
+Enter the ADE container (downloads the Docker image on first run):
+
 ```bash
 molisens_ade_enter
 ```
 
-To stop ADE you need to execute outside of ADE:
+Stop the container (run outside ADE):
+
 ```bash
 molisens_ade_stop
 ```
+
+### Available Commands
+
+| Command               | Description                                |
+| --------------------- | ------------------------------------------ |
+| `molisens_ade_enter`  | Enter the ADE container (starts if needed) |
+| `molisens_ade_start`  | Start and enter the container              |
+| `molisens_ade_stop`   | Stop the container                         |
+| `molisens_ade_update` | Start with Docker image update             |
+
+## Structure
+
+```
+ade/
+├── install_ade.sh          # Installation script
+├── extensions.sh           # Shell env setup and ADE aliases
+├── ade+x86_64              # ADE binary (x86_64)
+├── ade+aarch64             # ADE binary (ARM64)
+├── .aderc_x86_64           # ADE container config (x86_64)
+├── .aderc_aarch64          # ADE container config (ARM64, with device mounts)
+├── .aderc_arm64            # ADE container config (macOS)
+└── MOLISENS/
+    ├── bagfiles/           # Recorded rosbag data
+    └── molisens_ws/        # ROS 2 workspace (cloned during install)
+```
+
+## Detailed Repository Overview
+
+The MOLISENS/MOSEP project is split across multiple repositories. The `install_ade.sh` script clones `molisens_ws`, which in turn uses `vcs import` to pull all sub-repos into `src/`. Docker images are built separately from `development.docker`.
+
+```
+$MOLISENS_DIR/
+├── ade/                                    ← development.ade (this repo)
+│   ├── install_ade.sh
+│   ├── extensions.sh
+│   └── MOLISENS/
+│       ├── bagfiles/                       ← recorded rosbag data
+│       └── molisens_ws/                    ← molisens_ws repo
+│           ├── config/                        workspace config & aliases
+│           ├── repos/
+│           │   └── molisens.repos             vcstool manifest
+│           └── src/                           cloned via vcs import
+│               ├── data/
+│               │   ├── mapping_sensor_kit/    ← data.mapping_sensor_kit
+│               │   ├── met_sensor_kit/        ← data.met_sensor_kit
+│               │   └── convert_lidar_packets/ ← data.convert_lidar_packets
+│               ├── drivers/
+│               │   ├── lufft_weather_station/ ← drivers.lufft_weather_station
+│               │   ├── ouster-ros/            (third-party)
+│               │   ├── ublox/                 (third-party)
+│               │   ├── xsens_ros_mti_driver/  (third-party)
+│               │   └── smartmicro_ros2_radars/(third-party)
+│               └── tools/
+│                   ├── data_recording/        ← tools.data_recording
+│                   ├── met_monitoring/        ← tools.met_monitoring
+│                   └── ntrip_client/          (third-party)
+└── docker/                                 ← development.docker repo
+    ├── build_ade.sh
+    ├── x86_64/                                Dockerfiles for x86_64
+    ├── aarch64/                               Dockerfiles for ARM64
+    └── Ouster_ROS1/                           ROS 1↔2 bridge for Ouster
+```
+
+## Notes on macOS
+
+1. Install ADE for macOS first: https://ade-cli.readthedocs.io/en/latest/install.html
+2. Follow the standard installation steps above
+3. Run `molisens_ade_enter`
+4. Follow the instructions in `MOLISENS/molisens_ws/src/drivers/smartmicro_ros2_radars/Readme.md` under the ARMv8 Support section
+5. Run `molisens_make` inside the ADE container
