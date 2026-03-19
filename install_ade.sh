@@ -33,12 +33,12 @@ if [ -z "$MOSEP_DIR" ]; then
 fi
 
 # Create subdirectories
-mkdir -p "$MOSEP_DIR/ade/MOSEP/bagfiles"
-git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOSEP_DIR/ade/MOSEP/mosep_ws"
-mkdir -p "$MOSEP_DIR/ade/MOSEP/mosep_ws/src"
+mkdir -p "$MOSEP_DIR/MOSEP/bagfiles"
+git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOSEP_DIR/MOSEP/mosep_ws"
+mkdir -p "$MOSEP_DIR/MOSEP/mosep_ws/src"
 
 # Source extensions.sh on shell startup
-write_shrc "source $MOSEP_DIR/ade/extensions.sh"
+write_shrc "source $MOSEP_DIR/extensions.sh"
 
 # Copy local git configuration into the container home directory
 cp ~/.gitconfig "$MOSEP_DIR/ade/.gitconfig"
