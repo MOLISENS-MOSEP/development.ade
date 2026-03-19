@@ -93,14 +93,14 @@ ade/
 ├── compose.yaml            # Docker Compose base config (x86_64)
 ├── compose.aarch64.yaml    # Docker Compose overrides (ARM64 devices)
 ├── justfile                # Task runner recipes
-└── MOLISENS/
+└── MOSEP/
     ├── bagfiles/           # Recorded rosbag data
-    └── molisens_ws/        # ROS 2 workspace (cloned during install)
+    └── mosep_ws/           # ROS 2 workspace (cloned during install)
 ```
 
 ## Detailed Repository Overview
 
-The MOLISENS/MOSEP project is split across multiple repositories. The `install_ade.sh` script clones `molisens_ws`, which in turn uses `vcs import` to pull all sub-repos into `src/`. Docker images are built separately from `development.docker`.
+The MOLISENS/MOSEP project is split across multiple repositories. The `install_ade.sh` script clones `mosep_ws`, which in turn uses `vcs import` to pull all sub-repos into `src/`. Docker images are built separately from `development.docker`.
 
 ```
 $MOSEP_DIR/
@@ -110,9 +110,9 @@ $MOSEP_DIR/
 │   ├── compose.yaml
 │   ├── compose.aarch64.yaml
 │   ├── justfile
-│   └── MOLISENS/
+│   └── MOSEP/
 │       ├── bagfiles/                       ← recorded rosbag data
-│       └── molisens_ws/                    ← molisens_ws repo
+│       └── mosep_ws/                       ← molisens_ws repo
 │           ├── config/                        workspace config & aliases
 │           ├── repos/
 │           │   └── molisens.repos             vcstool manifest
@@ -143,5 +143,5 @@ $MOSEP_DIR/
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) and [just](https://github.com/casey/just#installation)
 2. Follow the standard installation steps above
 3. Run `mosep_enter`
-4. Follow the instructions in `MOLISENS/molisens_ws/src/drivers/smartmicro_ros2_radars/Readme.md` under the ARMv8 Support section
+4. Follow the instructions in `MOSEP/mosep_ws/src/drivers/smartmicro_ros2_radars/Readme.md` under the ARMv8 Support section
 5. Run `molisens_make` inside the container

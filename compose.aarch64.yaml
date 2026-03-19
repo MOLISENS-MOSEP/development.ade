@@ -8,4 +8,4 @@ services:
       - /dev/rs485_adapter_1:/dev/rs485_adapter_1
       - /dev/rs485_adapter_2:/dev/rs485_adapter_2
     volumes:
-      - /media/data/bagfiles/:/home/${USER}/MOLISENS/bagfiles/
+      - /media/data/bagfiles/:/home/${USER}/MOSEP/bagfiles/
