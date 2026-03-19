@@ -26,22 +26,22 @@ if ! command -v just >/dev/null 2>&1; then
     exit 1
 fi
 
-# Check if $MOLISENS_DIR is set (if not, the whole operation does not make sense)
-if [ -z "$MOLISENS_DIR" ]; then
-    echo "Error: MOLISENS_DIR is not set! Also make sure to have it added to your .bashrc or .zshrc"
+# Check if $MOSEP_DIR is set (if not, the whole operation does not make sense)
+if [ -z "$MOSEP_DIR" ]; then
+    echo "Error: MOSEP_DIR is not set! Also make sure to have it added to your .bashrc or .zshrc"
     exit 1
 fi
 
 # Create subdirectories
-mkdir -p "$MOLISENS_DIR/ade/MOLISENS/bagfiles"
-git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOLISENS_DIR/ade/MOLISENS/molisens_ws"
-mkdir -p "$MOLISENS_DIR/ade/MOLISENS/molisens_ws/src"
+mkdir -p "$MOSEP_DIR/ade/MOLISENS/bagfiles"
+git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOSEP_DIR/ade/MOLISENS/molisens_ws"
+mkdir -p "$MOSEP_DIR/ade/MOLISENS/molisens_ws/src"
 
 # Source extensions.sh on shell startup
-write_shrc "source $MOLISENS_DIR/ade/extensions.sh"
+write_shrc "source $MOSEP_DIR/ade/extensions.sh"
 
 # Copy local git configuration into the container home directory
-cp ~/.gitconfig "$MOLISENS_DIR/ade/.gitconfig"
+cp ~/.gitconfig "$MOSEP_DIR/ade/.gitconfig"
 
 echo "Installation complete!"
 echo "Restart your terminal, then run 'mosep_enter' to start the development container."

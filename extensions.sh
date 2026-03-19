@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # MOSEP development environment
-export MOSEP_DIR=$MOLISENS_DIR/ade
+export MOSEP_DIR=$MOSEP_DIR/ade
 
 # Set COMPOSE_FILE based on architecture
 ARCHITECTURE=$(uname -m)

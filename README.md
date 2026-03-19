@@ -28,19 +28,19 @@ or check the [install guide](https://github.com/casey/just/blob/master/README.md
 1. Set the installation directory (add to your `.bashrc` or `.zshrc`):
 
 ```bash
-export MOLISENS_DIR="<WHEREVER_YOU_WANT>/MOLISENS"
+export MOSEP_DIR="<WHEREVER_YOU_WANT>/MOSEP"
 ```
-For example `export MOLISENS_DIR="/home/$USER/projects/MOLISENS"`
+For example `export MOSEP_DIR="/home/$USER/projects/MOSEP"`
 
 2. Clone and run the install script:
 
 ```bash
-mkdir -p $MOLISENS_DIR
-git clone https://github.com/MOLISENS-MOSEP/development.ade.git $MOLISENS_DIR/ade
-$MOLISENS_DIR/ade/install_ade.sh
+mkdir -p $MOSEP_DIR
+git clone https://github.com/MOLISENS-MOSEP/development.ade.git $MOSEP_DIR/ade
+$MOSEP_DIR/ade/install_ade.sh
 ```
 
-If you get `permission denied`, run `chmod +x $MOLISENS_DIR/ade/install_ade.sh` first.
+If you get `permission denied`, run `chmod +x $MOSEP_DIR/ade/install_ade.sh` first.
 
 3. **Restart your terminal.**
 
@@ -68,7 +68,7 @@ mosep_stop
 You can also use `just` directly from the `ade/` directory:
 
 ```bash
-cd $MOLISENS_DIR/ade
+cd $MOSEP_DIR/ade
 just enter
 just stop
 just update
@@ -103,7 +103,7 @@ ade/
 The MOLISENS/MOSEP project is split across multiple repositories. The `install_ade.sh` script clones `molisens_ws`, which in turn uses `vcs import` to pull all sub-repos into `src/`. Docker images are built separately from `development.docker`.
 
 ```
-$MOLISENS_DIR/
+$MOSEP_DIR/
 ├── ade/                                    ← development.ade (this repo)
 │   ├── install_ade.sh
 │   ├── extensions.sh
