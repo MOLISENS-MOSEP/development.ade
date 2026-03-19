@@ -20,3 +20,11 @@ services:
       - .:/home/${USER}
     stdin_open: true
     tty: true
+    # Uncomment for CUDA support
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]

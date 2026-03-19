@@ -14,13 +14,14 @@ sudo usermod -aG docker ${USER}
 
 **just** (command runner):
 
+Can be instlled via Python:
 ```bash
-# Via prebuilt binary
-curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
-
-# Or via package manager (Ubuntu 24.04+)
-sudo apt install just
+uv tool install rust-just
+# or
+pipx install rust-just
 ```
+
+or check the [install guide](https://github.com/casey/just/blob/master/README.md#installation).
 
 ## Installation
 
