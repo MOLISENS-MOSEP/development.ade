@@ -4,14 +4,13 @@ set -e
 
 write_shrc()
 {
-  # if a ~/.bashrc exists, write it to the .bashrc-file
+  # Append line to shell rc file only if it doesn't already exist
   if [ -e ~/.bashrc ]; then
-    echo "$1" >> ~/.bashrc
+    grep -qxF "$1" ~/.bashrc || echo "$1" >> ~/.bashrc
   fi
 
-  # if a ~/.zshrc exists, write it to the .zshrc-file
   if [ -e ~/.zshrc ]; then
-    echo "$1" >> ~/.zshrc
+    grep -qxF "$1" ~/.zshrc || echo "$1" >> ~/.zshrc
   fi
 }
 
