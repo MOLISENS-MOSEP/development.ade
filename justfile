@@ -22,9 +22,13 @@ export GROUP_ID := `id -g`
 export VIDEO_GROUP_ID := `getent group video | cut -d: -f3 || echo 44`
 
 # Enter the development container (starts it if needed)
+[no-exit-message]
 enter:
+    #!/usr/bin/env bash
     docker compose up -d
-    docker compose exec --user {{USER}} mosep bash -l
+    echo "Waiting for container to be ready..."
+    until docker compose exec mosep id {{USER}} &>/dev/null; do sleep 0.2; done
+    exec docker compose exec -it --user {{USER}} mosep bash -l
 
 # Stop the development container
 stop:
