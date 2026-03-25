@@ -33,7 +33,7 @@ fi
 
 # Create subdirectories
 mkdir -p "$MOSEP_DIR/ade/MOSEP/bagfiles"
-git clone -b feature/replace-ade-with-compose  https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOSEP_DIR/ade/MOSEP/mosep_ws"
+git clone https://github.com/MOLISENS-MOSEP/molisens_ws.git "$MOSEP_DIR/ade/MOSEP/mosep_ws"
 mkdir -p "$MOSEP_DIR/ade/MOSEP/mosep_ws/src"
 
 # Source extensions.sh on shell startup
