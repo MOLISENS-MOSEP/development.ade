@@ -3,6 +3,7 @@
 
 !/.gitignore
 !/README.md
+!/LICENSE
 !/extensions.sh
 !/install_ade.sh
 !/compose.yaml
