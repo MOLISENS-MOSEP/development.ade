@@ -1,0 +1,30 @@
+services:
+  mosep:
+    image: ghcr.io/molisens-mosep/humble-x86_64:0.5
+    container_name: mosep
+    hostname: mosep
+    network_mode: host
+    privileged: true
+    cap_add:
+      - SYS_PTRACE
+    extra_hosts:
+      - "mosep:127.0.0.1"
+    environment:
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      - USER=${USER}
+      - GROUP=${GROUP}
+      - USER_ID=${USER_ID}
+      - GROUP_ID=${GROUP_ID}
+      - VIDEO_GROUP_ID=${VIDEO_GROUP_ID}
+    volumes:
+      - .:/home/${USER}
+    stdin_open: true
+    tty: true
+    # Uncomment for CUDA support
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]

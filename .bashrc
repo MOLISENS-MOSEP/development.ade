@@ -120,19 +120,19 @@ fi
 git config --global credential.helper cache
 
 # Source ROS2 workspaces
-export MOLISENS_DIR="$HOME/MOLISENS"
-export MOLISENS_WS_DIR="$MOLISENS_DIR/molisens_ws"
+export MOSEP_DIR="$HOME/MOSEP"
+export MOSEP_WS_DIR="$MOSEP_DIR/mosep_ws"
 
 ##### ROS workspace sources #####
 source /opt/ros/$ROS_DISTRO/setup.bash
 
 
-source $MOLISENS_WS_DIR/config/extensions.sh
+source $MOSEP_WS_DIR/config/extensions.sh
 
-if [ -d $MOLISENS_WS_DIR/install ]; then
-  source $MOLISENS_WS_DIR/install/setup.bash
+if [ -d $MOSEP_WS_DIR/install ]; then
+  source $MOSEP_WS_DIR/install/setup.bash
 else
-    echo "--- MOLISENS_WS not ready! molisens_update, molisens_make ---"
+    echo "--- MOSEP_WS not ready! mosep_update, mosep_make ---"
 fi
 
 
@@ -147,17 +147,17 @@ if [ -d "/opt/autostart" ]; then
 fi
 
 
-# Change bash-prompt to include "ade:"
-export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[34m\]{ade}-\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$"
+# Change bash-prompt to include "mosep:"
+export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[34m\]{mosep}-\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$"
 
-##### Custom ADE aliases #####
+##### Custom aliases #####
 alias vscode="/opt/vscode/bin/code"
 
 ##### Other changes after here #####
 
 
-if [ -f $MOLISENS_WS_DIR/config/cyclonedds.xml ]; then
-  export CYCLONEDDS_URI=file://$MOLISENS_WS_DIR/config/cyclonedds.xml
+if [ -f $MOSEP_WS_DIR/config/cyclonedds.xml ]; then
+  export CYCLONEDDS_URI=file://$MOSEP_WS_DIR/config/cyclonedds.xml
 fi
 
 export ROS_DOMAIN_ID=31

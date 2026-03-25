@@ -3,4 +3,9 @@
 
 !/.gitignore
 !/README.md
-!.aderc_arm64
+!/LICENSE
+!/extensions.sh
+!/install_ade.sh
+!/compose.yaml
+!/compose.aarch64.yaml
+!/justfile
