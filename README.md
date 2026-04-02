@@ -144,4 +144,4 @@ $MOSEP_DIR/
 2. Follow the standard installation steps above
 3. Run `mosep_enter`
 4. Follow the instructions in `MOSEP/mosep_ws/src/drivers/smartmicro_ros2_radars/Readme.md` under the ARMv8 Support section
-5. Run `molisens_make` inside the container
+5. Run `mosep_make` inside the container
