@@ -14,7 +14,18 @@ compose_file := if arch() == "aarch64" {
     "compose.yaml"
 }
 
-export COMPOSE_FILE := compose_file
+# Append profile-specific compose file (e.g. MOSEP_PROFILE=met or cam)
+[private]
+mosep_profile := env("MOSEP_PROFILE", "")
+
+[private]
+compose_file_full := if mosep_profile != "" {
+    compose_file + ":compose." + mosep_profile + ".yaml"
+} else {
+    compose_file
+}
+
+export COMPOSE_FILE := compose_file_full
 export USER := `whoami`
 export GROUP := `id -gn`
 export USER_ID := `id -u`

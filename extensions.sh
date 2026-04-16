@@ -11,6 +11,11 @@ else
   export COMPOSE_FILE="compose.yaml"
 fi
 
+# Append profile-specific compose file (e.g. MOSEP_PROFILE=met or cam)
+if [[ -n "$MOSEP_PROFILE" ]]; then
+  export COMPOSE_FILE="$COMPOSE_FILE:compose.${MOSEP_PROFILE}.yaml"
+fi
+
 # Environment variables consumed by compose.yaml
 export USER=$(whoami)
 export GROUP=$(id -gn)
