@@ -1,0 +1,8 @@
+services:
+  mosep:
+    devices:
+      - /dev/ttyS0:/dev/sensor_gps_module
+      - /dev/sensor_xsens_mti630:/dev/sensor_xsens_mti630
+      - /dev/rs485_adapter_0:/dev/rs485_adapter_0
+      - /dev/rs485_adapter_1:/dev/rs485_adapter_1
+      - /dev/rs485_adapter_2:/dev/rs485_adapter_2

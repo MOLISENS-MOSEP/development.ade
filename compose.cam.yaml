@@ -1,0 +1,9 @@
+services:
+  mosep:
+    devices:
+      - /dev/video0:/dev/video0
+      - /dev/vchiq:/dev/vchiq
+    volumes:
+      - /opt/vc:/opt/vc
+    environment:
+      - LD_LIBRARY_PATH=/opt/vc/lib

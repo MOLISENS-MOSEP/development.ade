@@ -8,4 +8,6 @@
 !/install_ade.sh
 !/compose.yaml
 !/compose.aarch64.yaml
+!/compose.cam.yaml
+!/compose.met.yaml
 !/justfile
