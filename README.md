@@ -95,6 +95,14 @@ Then start as usual:
 mosep_enter
 ```
 
+Inside the container, import only the camera-relevant repos:
+
+```bash
+cd $MOSEP_WS
+vcs import src < repos/cam.repos
+mosep_make
+```
+
 ### Available Commands
 
 | Alias          | just recipe   | Description                            |
@@ -140,11 +148,13 @@ $MOSEP_DIR/
 │       └── mosep_ws/                       ← molisens_ws repo
 │           ├── config/                        workspace config & aliases
 │           ├── repos/
-│           │   └── molisens.repos             vcstool manifest
+│           │   ├── molisens.repos             vcstool manifest (full)
+│           │   └── cam.repos                  vcstool manifest (cam Pi only)
 │           └── src/                           cloned via vcs import
 │               ├── data/
 │               │   ├── mapping_sensor_kit/    ← data.mapping_sensor_kit
 │               │   ├── met_sensor_kit/        ← data.met_sensor_kit
+│               │   ├── cam_sensor_kit/        ← data.cam_sensor_kit
 │               │   └── convert_lidar_packets/ ← data.convert_lidar_packets
 │               ├── drivers/
 │               │   ├── lufft_weather_station/ ← drivers.lufft_weather_station
