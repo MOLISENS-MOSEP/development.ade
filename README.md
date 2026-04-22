@@ -89,17 +89,20 @@ export MOSEP_PROFILE=met
 export MOSEP_PROFILE=cam
 ```
 
-Then start as usual:
+**Full setup (mapping/met Pi):** start container, then inside it pull all repos and build:
 
 ```bash
 mosep_enter
+mosep_update   # pulls molisens.repos (LiDAR, radar, GNSS, IMU, ...)
+mosep_make
 ```
 
-Inside the container, import only the camera-relevant repos:
+**Camera Pi only:** start container with `MOSEP_PROFILE=cam`, then pull only camera repos and build:
 
 ```bash
-cd $MOSEP_WS
-vcs import src < repos/cam.repos
+export MOSEP_PROFILE=cam
+mosep_enter
+mosep_cam_update   # pulls cam.repos (cam_sensor_kit + data_recording only)
 mosep_make
 ```
 
@@ -112,6 +115,15 @@ mosep_make
 | `mosep_update` | `just update` | Pull latest image and restart          |
 | —              | `just logs`   | Show container logs                    |
 | —              | `just status` | Show container status                  |
+
+The following aliases run **inside the container** to sync and build the workspace:
+
+| Alias              | Description                                                    |
+| ------------------ | -------------------------------------------------------------- |
+| `mosep_update`     | Pull `molisens.repos` — full workspace (mapping/met Pi)        |
+| `mosep_cam_update` | Pull `cam.repos` — camera Pi only (cam_sensor_kit + recording) |
+| `mosep_make`       | Build all packages                                             |
+| `mosep_make <pkg>` | Build a specific package                                       |
 
 ## Structure
 
