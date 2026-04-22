@@ -74,6 +74,27 @@ just stop
 just update
 ```
 
+### AArch64 Sensor Profiles (`MOSEP_PROFILE`)
+
+On aarch64 systems, you can select sensor-specific compose overrides via `MOSEP_PROFILE`.
+
+- `met`: meteorological setup (GPS, IMU, RS485 adapters)
+- `cam`: camera-focused setup (`/dev/video0`, `/dev/vchiq`, VideoCore libs)
+
+Set profile in your shell config (or export per session):
+
+```bash
+export MOSEP_PROFILE=met
+# or
+export MOSEP_PROFILE=cam
+```
+
+Then start as usual:
+
+```bash
+mosep_enter
+```
+
 ### Available Commands
 
 | Alias          | just recipe   | Description                            |
@@ -91,7 +112,9 @@ ade/
 ├── install_ade.sh          # Installation script
 ├── extensions.sh           # Shell env setup and aliases
 ├── compose.yaml            # Docker Compose base config (x86_64)
-├── compose.aarch64.yaml    # Docker Compose overrides (ARM64 devices)
+├── compose.aarch64.yaml    # Common aarch64 overrides
+├── compose.met.yaml        # aarch64 met sensor profile
+├── compose.cam.yaml        # aarch64 camera sensor profile
 ├── justfile                # Task runner recipes
 └── MOSEP/
     ├── bagfiles/           # Recorded rosbag data
@@ -109,6 +132,8 @@ $MOSEP_DIR/
 │   ├── extensions.sh
 │   ├── compose.yaml
 │   ├── compose.aarch64.yaml
+│   ├── compose.met.yaml
+│   ├── compose.cam.yaml
 │   ├── justfile
 │   └── MOSEP/
 │       ├── bagfiles/                       ← recorded rosbag data
